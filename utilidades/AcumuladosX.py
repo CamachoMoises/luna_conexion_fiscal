@@ -15,8 +15,10 @@ class AcumuladosX(object):
       if (len(trama) > 0):
         try:
           _arrayParameter = trama.split(chr(0X0A)) 
+          print(_arrayParameter)
+          _arraySubParameter= _arrayParameter[0].split(' ')
           if (len(_arrayParameter) >= 7):
-            self._freeTax = Util().DoValueDouble(_arrayParameter[0])
+            self._freeTax = Util().DoValueDouble(_arraySubParameter[1])
             self._generalRate1 = Util().DoValueDouble(_arrayParameter[1])
             self._reducedRate2 = Util().DoValueDouble(_arrayParameter[2])
             self._additionalRate3 = Util().DoValueDouble(_arrayParameter[3])

@@ -41,5 +41,33 @@ def ReporteXPrint(PORT):
     impresora.CloseFpctrl()
     return True
    
+def datosReporteX1(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetXReport()
+    impresora.CloseFpctrl()
+    return datos
 
+def datosReporteX2(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetX2Report()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosReporteX4(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetX4Report()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosReporteX5(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetX5Report()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosReporteX7(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetX7Report()
+    impresora.CloseFpctrl()
+    return datos
 

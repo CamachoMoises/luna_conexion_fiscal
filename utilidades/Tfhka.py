@@ -340,38 +340,38 @@ class tf_ve_ifpython:
     st_aux = st;
     st = st & ~0x04
 
-    if   (st & 0x6A) == 0x6A: #En modo fiscal, carga completa de la memoria fiscal y emisión de documentos no fiscales
-      self.status='En modo fiscal, carga completa de la memoria fiscal y emisión de documentos no fiscales'
+    if   (st & 0x6A) == 0x6A: #En modo fiscal, carga completa de la memoria fiscal y emisiï¿½n de documentos no fiscales
+      self.status='En modo fiscal, carga completa de la memoria fiscal y emisiï¿½n de documentos no fiscales'
       status = "12"
-    elif (st & 0x69) == 0x69: #En modo fiscal, carga completa de la memoria fiscal y emisión de documentos  fiscales
-      self.status='En modo fiscal, carga completa de la memoria fiscal y emisión de documentos  fiscales'
+    elif (st & 0x69) == 0x69: #En modo fiscal, carga completa de la memoria fiscal y emisiï¿½n de documentos  fiscales
+      self.status='En modo fiscal, carga completa de la memoria fiscal y emisiï¿½n de documentos  fiscales'
       status = "11"
     elif (st & 0x68) == 0x68: #En modo fiscal, carga completa de la memoria fiscal y en espera
       self.status='En modo fiscal, carga completa de la memoria fiscal y en espera'
       status = "10"
-    elif (st & 0x72) == 0x72: #En modo fiscal, cercana carga completa de la memoria fiscal y en emisión de documentos no fiscales
-      self.status='En modo fiscal, cercana carga completa de la memoria fiscal y en emisión de documentos no fiscales'
+    elif (st & 0x72) == 0x72: #En modo fiscal, cercana carga completa de la memoria fiscal y en emisiï¿½n de documentos no fiscales
+      self.status='En modo fiscal, cercana carga completa de la memoria fiscal y en emisiï¿½n de documentos no fiscales'
       status = "9 "
-    elif (st & 0x71) == 0x71: #En modo fiscal, cercana carga completa de la memoria fiscal y en emisión de documentos no fiscales
-      self.status='En modo fiscal, cercana carga completa de la memoria fiscal y en emisión de documentos no fiscales'
+    elif (st & 0x71) == 0x71: #En modo fiscal, cercana carga completa de la memoria fiscal y en emisiï¿½n de documentos no fiscales
+      self.status='En modo fiscal, cercana carga completa de la memoria fiscal y en emisiï¿½n de documentos no fiscales'
       status = "8 "
     elif (st & 0x70) == 0x70: #En modo fiscal, cercana carga completa de la memoria fiscal y en espera
       self.status='En modo fiscal, cercana carga completa de la memoria fiscal y en espera'
       status = "7 "
-    elif (st & 0x62) == 0x62: #En modo fiscal y en emisión de documentos no fiscales
-      self.status='En modo fiscal y en emisión de documentos no fiscales'
+    elif (st & 0x62) == 0x62: #En modo fiscal y en emisiï¿½n de documentos no fiscales
+      self.status='En modo fiscal y en emisiï¿½n de documentos no fiscales'
       status = "6 "
-    elif (st & 0x61) == 0x61: #En modo fiscal y en emisión de documentos fiscales
-      self.status='En modo fiscal y en emisión de documentos fiscales'
+    elif (st & 0x61) == 0x61: #En modo fiscal y en emisiï¿½n de documentos fiscales
+      self.status='En modo fiscal y en emisiï¿½n de documentos fiscales'
       status = "5 "
     elif (st & 0x60) == 0x60: #En modo fiscal y en espera
       self.status='En modo fiscal y en espera'
       status = "4 "
-    elif (st & 0x42) == 0x42: #En modo prueba y en emisión de documentos no fiscales
-      self.status='En modo prueba y en emisión de documentos no fiscales'
+    elif (st & 0x42) == 0x42: #En modo prueba y en emisiï¿½n de documentos no fiscales
+      self.status='En modo prueba y en emisiï¿½n de documentos no fiscales'
       status = "3 "
-    elif (st & 0x41) == 0x41: #En modo prueba y en emisión de documentos fiscales
-      self.status='En modo prueba y en emisión de documentos fiscales'
+    elif (st & 0x41) == 0x41: #En modo prueba y en emisiï¿½n de documentos fiscales
+      self.status='En modo prueba y en emisiï¿½n de documentos fiscales'
       status = "2 "
     elif (st & 0x40) == 0x40: #En modo prueba y en espera
       self.status='En modo prueba y en espera'
@@ -401,8 +401,8 @@ class tf_ve_ifpython:
     elif (er & 0x50) == 0x50: #Comando Invalido/Valor Invalido
       self.error = 'Comando Invalido/Valor Invalido'
       error = "80 "
-    elif (er & 0x43) == 0x43: #Fin en la entrega de papel y error mecánico
-      self.error = 'Fin en la entrega de papel y error mecánico'
+    elif (er & 0x43) == 0x43: #Fin en la entrega de papel y error mecï¿½nico
+      self.error = 'Fin en la entrega de papel y error mecï¿½nico'
       error = "3  "
     elif (er & 0x42) == 0x42: #Error de indole mecanico en la entrega de papel
       self.error = 'Error de indole mecanico en la entrega de papel'
