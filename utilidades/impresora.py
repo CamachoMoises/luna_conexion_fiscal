@@ -40,6 +40,12 @@ def ReporteXPrint(PORT):
     impresora.PrintXReport()
     impresora.CloseFpctrl()
     return True
+
+def ReporteZPrint(PORT):
+    impresora = cargarImpresora(PORT)
+    impresora.PrintZReport()
+    impresora.CloseFpctrl()
+    return True
    
 def datosReporteX1(PORT):
     impresora = cargarImpresora(PORT)
@@ -71,3 +77,57 @@ def datosReporteX7(PORT):
     impresora.CloseFpctrl()
     return datos
 
+
+def datosImpresora1(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetS1PrinterData()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosImpresora2(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetS2PrinterData()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosImpresora3(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetS3PrinterData()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosImpresora4(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetS4PrinterData()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosImpresora5(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetS5PrinterData()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosImpresora6(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetS6PrinterData()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosImpresora7(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetS7PrinterData()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosImpresora8E(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetS8EPrinterData()
+    impresora.CloseFpctrl()
+    return datos
+
+def datosImpresora8P(PORT):
+    impresora = cargarImpresora(PORT)
+    datos = impresora.GetS8PPrinterData()
+    impresora.CloseFpctrl()
+    return datos
