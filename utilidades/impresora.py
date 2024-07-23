@@ -35,6 +35,14 @@ def configurarPueto():
         puerto = puerto+ 1
     return None
 
+
+def enviarComando(PORT, comando):
+    impresora = cargarImpresora(PORT)
+    resp=impresora.SendCmd(comando)
+    impresora.CloseFpctrl()
+    return resp
+
+
 def ReporteXPrint(PORT):
     impresora = cargarImpresora(PORT)
     impresora.PrintXReport()

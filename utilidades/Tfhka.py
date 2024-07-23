@@ -89,9 +89,12 @@ class tf_ve_ifpython:
         self.ser.flushInput()
         self.ser.flushOutput()
         if self._HandleCTSRTS():
-          msj=self._AssembleQueryToSend(cmd)
-          self._write(msj)
-          rt=self._read(1)
+          msj=self._AssembleQueryToSend(cmd)         
+          self._write(msj.encode('utf-8'))
+          # self._write(b'\x020x05h\x03&')
+          rt=self._read(100)
+          print(self.trama)
+          print('casa', rt)
           if rt==chr(0x06):
             self.envio = "Status: 00  Error: 00"
             rt=True
@@ -99,7 +102,7 @@ class tf_ve_ifpython:
             self.envio = "Status: 00  Error: 89"
             rt=False
         else:
-          self._GetStatusError(0, 128);
+          self._GetStatusError(0, 128)
           self.envio = "Error... CTS in False"
           rt=False
         self.ser.setRTS(False)
@@ -119,7 +122,7 @@ class tf_ve_ifpython:
          self.ser.flushOutput()
          if self._HandleCTSRTS():
             msj=self._AssembleQueryToSend(cmd)
-            self._write(msj)
+            self._write(msj.encode('utf-8'))
             rt=True
          else:
             self._GetStatusError(0, 128);
@@ -170,7 +173,7 @@ class tf_ve_ifpython:
   def ReadFpStatus(self):
     if self._HandleCTSRTS():
       msj=chr(0x05)
-      self._write(msj)
+      self._write(msj.encode('utf-8'))
       time.sleep(0.05)
       r=self._read(5)
       if len(r)==5:
@@ -197,6 +200,7 @@ class tf_ve_ifpython:
   def _AssembleQueryToSend(self,linea):
     lrc = self._Lrc(linea+chr(0x03))
     previo=chr(0x02)+linea+chr(0x03)+chr(lrc)
+    print(previo)
     return previo
 
   def _Lrc(self,linea):
@@ -250,14 +254,14 @@ class tf_ve_ifpython:
       if self._HandleCTSRTS():
         msj=1
         msj=self._AssembleQueryToSend(cmd)
-        self._write(msj)
+        self._write(msj.encode('utf-8'))
         rt=self._read(1)
         while rt==chr(0x05):
           rt=self._read(1)
           if rt!=None:
             time.sleep(0.05)
             msj=self._Debug('ACK')
-            self._write(msj)
+            self._write(msj.encode('utf-8'))
             time.sleep(0.05)
             msj=self._FetchRow()
             return msj
@@ -280,13 +284,13 @@ class tf_ve_ifpython:
       if self._HandleCTSRTS():
          m=""
          msj=self._AssembleQueryToSend(cmd)
-         self._write(msj)
+         self._write(msj.encode('utf-8'))
          rt=self._read(1)
          while True:
             while msj!= chr(0x04):
                time.sleep(0.5)
                msj=self._Debug('ACK')
-               self._write(msj)
+               self._write(msj.encode('utf-8'))
                time.sleep(0.5)
                msj=self._FetchRow_Report(1.3)
                if(msj==None):
@@ -313,13 +317,13 @@ class tf_ve_ifpython:
       if self._HandleCTSRTS():
          m=""
          msj=self._AssembleQueryToSend(cmd)
-         self._write(msj)
+         self._write(msj.encode('utf-8'))
          rt=self._read(1)
          while True:
             while msj!= chr(0x04):
                time.sleep(0.5)
                msj=self._Debug('ACK')
-               self._write(msj)
+               self._write(msj.encode('utf-8'))
                time.sleep(0.5)
                msj=self._FetchRow_Report(1.5)
                if(msj==None):

@@ -5,6 +5,7 @@ from . import views
 urlpatterns= [
     url(r'^$', views.index, name='index'),
     url(r'^configurarPuerto/', views.configurarPuerto, name='configurarPuerto'),
+    url(r'^enviarComandoCMD/', views.enviarComandoCMD, name='enviarComandoCMD'),
     url(r'^imprimirReporteX/', views.imprimirReporteX, name='imprimirReporteX'),
     url(r'^imprimirReporteZ/', views.imprimirReporteZ, name='imprimirReporteZ'),
     url(r'^getReporteX1/', views.getReporteX1, name='getReporteX1'),

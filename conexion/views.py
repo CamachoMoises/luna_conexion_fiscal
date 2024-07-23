@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.http import HttpResponse, JsonResponse
+from rest_framework.decorators import api_view
 from django.shortcuts import render
 from utilidades.impresora import (
     testF, 
     configurarPueto, 
+    enviarComando,
     ReporteXPrint,
     ReporteZPrint,
     datosReporteX1, 
@@ -41,6 +43,19 @@ def configurarPuerto(request):
         nombre=PORT
     )
     return HttpResponse("puerto configurado: "+ PORT)
+@api_view(['GET'])
+def enviarComandoCMD(req):
+    comando= req.query_params.get('comando')
+    print(comando)
+    
+    PORT = cache.get('PORT')
+    DB_PORT = Puerto.objects.last()
+    print(PORT)
+    if PORT == DB_PORT.nombre and isinstance(PORT,str):
+        resp=enviarComando(PORT, comando)
+        return HttpResponse("Reporte Impreso")
+    else:
+        return HttpResponse("error al imprimir") 
 
 def imprimirReporteX(req):
     PORT = cache.get('PORT')
