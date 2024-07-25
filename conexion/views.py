@@ -38,12 +38,24 @@ def configurarPuerto(request):
     DB_PORT=Puerto.objects.last()
     print('Ultimo puerto:' + DB_PORT.nombre)
     PORT = cache.get_or_set('PORT', '')
-    PORT = configurarPueto()
-    cache.set('PORT', PORT)
-    Puerto.objects.create(
-        nombre=PORT
-    )
-    return JsonResponse({"message":"puerto configurado: "+ PORT})
+    try:
+        PORT = configurarPueto()
+        cache.set('PORT', PORT)
+        Puerto.objects.create(
+            nombre=PORT
+        )
+        
+        return JsonResponse({
+            "message":"puerto configurado: "+ PORT,
+            "status":True,
+            "port":PORT
+            })
+    except Exception as e:
+        print(e)
+        return JsonResponse({
+            "message":"Error al configurar el puerto",
+            "error":True
+        })
 
 def status(req):
     PORT = cache.get('PORT')
@@ -53,7 +65,8 @@ def status(req):
         resp=statusImpresora(PORT)
         return JsonResponse({"status":resp})
     else:
-        return JsonResponse({"error":"error al imprimir"}) 
+        return JsonResponse({"error":True}) 
+    
 @api_view(['GET'])
 def enviarComandoCMD(req):
     comando= req.query_params.get('comando')
@@ -174,14 +187,15 @@ def getDatosImpresora1(req):
     try:
         if PORT == DB_PORT.nombre and isinstance(PORT,str):
             datos=datosImpresora1(PORT)
-            return JsonResponse({"mensaje":"Datos de la impresora 1", "datos":datos.__dict__}) 
+            return JsonResponse({
+                    "mensaje":"Datos de la impresora 1", 
+                    "datos":datos.__dict__,
+                    "status":True}) 
         else:
-            raise Exception("los tipos con coinciden")
-
+            return JsonResponse({"error":True}) 
     except Exception as e:
-        print(e)
-        return HttpResponse("Error de consulta") 
-    
+        return JsonResponse({"error":True}) 
+
 def getDatosImpresora2(req):
     PORT = cache.get('PORT')
     DB_PORT = Puerto.objects.last()
@@ -189,14 +203,14 @@ def getDatosImpresora2(req):
     try:
         if PORT == DB_PORT.nombre and isinstance(PORT,str):
             datos=datosImpresora2(PORT)
-            return JsonResponse({"mensaje":"Datos de la impresora 2", "datos":datos.__dict__}) 
+            return JsonResponse({
+                    "mensaje":"Datos de la impresora 2", 
+                    "datos":datos.__dict__,
+                    "status":True}) 
         else:
-            raise Exception("los tipos con coinciden")
-
+            return JsonResponse({"error":True}) 
     except Exception as e:
-        print(e)
-        return HttpResponse("Error de consulta") 
-        
+        return JsonResponse({"error":True}) 
 def getDatosImpresora3(req):
     PORT = cache.get('PORT')
     DB_PORT = Puerto.objects.last()
@@ -204,14 +218,14 @@ def getDatosImpresora3(req):
     try:
         if PORT == DB_PORT.nombre and isinstance(PORT,str):
             datos=datosImpresora3(PORT)
-            return JsonResponse({"mensaje":"Datos de la impresora 3", "datos":datos.__dict__}) 
+            return JsonResponse({
+                    "mensaje":"Datos de la impresora 3", 
+                    "datos":datos.__dict__,
+                    "status":True}) 
         else:
-            raise Exception("los tipos con coinciden")
-
+            return JsonResponse({"error":True}) 
     except Exception as e:
-        print(e)
-        return HttpResponse("Error de consulta") 
-    
+        return JsonResponse({"error":True}) 
 def getDatosImpresora4(req):
     PORT = cache.get('PORT')
     DB_PORT = Puerto.objects.last()
@@ -219,14 +233,14 @@ def getDatosImpresora4(req):
     try:
         if PORT == DB_PORT.nombre and isinstance(PORT,str):
             datos=datosImpresora4(PORT)
-            return JsonResponse({"mensaje":"Datos de la impresora 4", "datos":datos.__dict__}) 
+            return JsonResponse({
+                    "mensaje":"Datos de la impresora 4", 
+                    "datos":datos.__dict__,
+                    "status":True}) 
         else:
-            raise Exception("los tipos con coinciden")
-
+            return JsonResponse({"error":True}) 
     except Exception as e:
-        print(e)
-        return HttpResponse("Error de consulta") 
-    
+        return JsonResponse({"error":True}) 
 def getDatosImpresora5(req):
     PORT = cache.get('PORT')
     DB_PORT = Puerto.objects.last()
@@ -234,14 +248,14 @@ def getDatosImpresora5(req):
     try:
         if PORT == DB_PORT.nombre and isinstance(PORT,str):
             datos=datosImpresora5(PORT)
-            return JsonResponse({"mensaje":"Datos de la impresora 5", "datos":datos.__dict__}) 
+            return JsonResponse({
+                    "mensaje":"Datos de la impresora 5", 
+                    "datos":datos.__dict__,
+                    "status":True}) 
         else:
-            raise Exception("los tipos con coinciden")
-
+            return JsonResponse({"error":True}) 
     except Exception as e:
-        print(e)
-        return HttpResponse("Error de consulta") 
-        
+        return JsonResponse({"error":True}) 
 def getDatosImpresora6(req):
     PORT = cache.get('PORT')
     DB_PORT = Puerto.objects.last()
@@ -249,14 +263,15 @@ def getDatosImpresora6(req):
     try:
         if PORT == DB_PORT.nombre and isinstance(PORT,str):
             datos=datosImpresora6(PORT)
-            return JsonResponse({"mensaje":"Datos de la impresora 6", "datos":datos.__dict__}) 
+            return JsonResponse({
+                    "mensaje":"Datos de la impresora 6", 
+                    "datos":datos.__dict__,
+                    "status":True}) 
         else:
-            raise Exception("los tipos con coinciden")
-
+            return JsonResponse({"error":True}) 
     except Exception as e:
-        print(e)
-        return HttpResponse("Error de consulta") 
-        
+        return JsonResponse({"error":True}) 
+      
 def getDatosImpresora7(req):
     PORT = cache.get('PORT')
     DB_PORT = Puerto.objects.last()
@@ -264,29 +279,15 @@ def getDatosImpresora7(req):
     try:
         if PORT == DB_PORT.nombre and isinstance(PORT,str):
             datos=datosImpresora7(PORT)
-            return JsonResponse({"mensaje":"Datos de la impresora 7", "datos":datos.__dict__}) 
+            return JsonResponse({
+                    "mensaje":"Datos de la impresora 7", 
+                    "datos":datos.__dict__,
+                    "status":True}) 
         else:
-            raise Exception("los tipos con coinciden")
-
+            return JsonResponse({"error":True}) 
     except Exception as e:
-        print(e)
-        return HttpResponse("Error de consulta") 
-    
-def getDatosImpresora7(req):
-    PORT = cache.get('PORT')
-    DB_PORT = Puerto.objects.last()
-    print(PORT)
-    try:
-        if PORT == DB_PORT.nombre and isinstance(PORT,str):
-            datos=datosImpresora7(PORT)
-            return JsonResponse({"mensaje":"Datos de la impresora 7", "datos":datos.__dict__}) 
-        else:
-            raise Exception("los tipos con coinciden")
-
-    except Exception as e:
-        print(e)
-        return HttpResponse("Error de consulta") 
-        
+        return JsonResponse({"error":True})
+     
 def getDatosImpresora8E(req):
     PORT = cache.get('PORT')
     DB_PORT = Puerto.objects.last()
@@ -294,14 +295,14 @@ def getDatosImpresora8E(req):
     try:
         if PORT == DB_PORT.nombre and isinstance(PORT,str):
             datos=datosImpresora8E(PORT)
-            return JsonResponse({"mensaje":"Datos de la impresora 8 encabezado", "datos":datos.__dict__}) 
+            return JsonResponse({
+                    "mensaje":"Datos de la impresora encabezado", 
+                    "datos":datos.__dict__,
+                    "status":True}) 
         else:
-            raise Exception("los tipos con coinciden")
-
+            return JsonResponse({"error":True}) 
     except Exception as e:
-        print(e)
-        return HttpResponse("Error de consulta") 
-    
+        return JsonResponse({"error":True}) 
 def getDatosImpresora8P(req):
     PORT = cache.get('PORT')
     DB_PORT = Puerto.objects.last()
@@ -309,18 +310,11 @@ def getDatosImpresora8P(req):
     try:
         if PORT == DB_PORT.nombre and isinstance(PORT,str):
             datos=datosImpresora8P(PORT)
-            return JsonResponse({"mensaje":"Datos de la impresora 8 pie", "datos":datos.__dict__}) 
+            return JsonResponse({
+                    "mensaje":"Datos de la impresora pie", 
+                    "datos":datos.__dict__,
+                    "status":True}) 
         else:
-            raise Exception("los tipos con coinciden")
-
+            return JsonResponse({"error":True}) 
     except Exception as e:
-        print(e)
-        return HttpResponse("Error de consulta") 
-        
-        
-        
-
-
-
-    
-
+        return JsonResponse({"error":True}) 
