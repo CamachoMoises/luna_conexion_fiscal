@@ -92,8 +92,8 @@ class tf_ve_ifpython:
           msj=self._AssembleQueryToSend(cmd)         
           self._write(msj.encode('utf-8'))
           # self._write(b'\x020x05h\x03&')
-          rt=self._read(100)
-          print(self.trama)
+          rt=self._read(1)
+          # print(self.trama)
           print('casa', rt)
           if rt==chr(0x06):
             self.envio = "Status: 00  Error: 00"

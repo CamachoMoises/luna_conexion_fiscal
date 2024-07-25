@@ -6,6 +6,7 @@ from django.shortcuts import render
 from utilidades.impresora import (
     testF, 
     configurarPueto, 
+    statusImpresora,
     enviarComando,
     ReporteXPrint,
     ReporteZPrint,
@@ -42,7 +43,17 @@ def configurarPuerto(request):
     Puerto.objects.create(
         nombre=PORT
     )
-    return HttpResponse("puerto configurado: "+ PORT)
+    return JsonResponse({"message":"puerto configurado: "+ PORT})
+
+def status(req):
+    PORT = cache.get('PORT')
+    DB_PORT = Puerto.objects.last()
+    print(PORT)
+    if PORT == DB_PORT.nombre and isinstance(PORT,str):
+        resp=statusImpresora(PORT)
+        return JsonResponse({"status":resp})
+    else:
+        return JsonResponse({"error":"error al imprimir"}) 
 @api_view(['GET'])
 def enviarComandoCMD(req):
     comando= req.query_params.get('comando')
