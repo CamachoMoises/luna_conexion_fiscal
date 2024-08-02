@@ -44,6 +44,7 @@ def statusImpresora(PORT):
 def enviarComando(PORT, comando):
     impresora = cargarImpresora(PORT)
     resp=impresora.SendCmd(comando)
+    print(resp)
     impresora.CloseFpctrl()
     return resp
 

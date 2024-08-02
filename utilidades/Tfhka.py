@@ -89,12 +89,12 @@ class tf_ve_ifpython:
         self.ser.flushInput()
         self.ser.flushOutput()
         if self._HandleCTSRTS():
-          msj=self._AssembleQueryToSend(cmd)         
+          msj=self._AssembleQueryToSend(cmd)    
+          print(msj.encode('utf-8'))     
           self._write(msj.encode('utf-8'))
           # self._write(b'\x020x05h\x03&')
-          rt=self._read(1)
-          # print(self.trama)
-          print('casa', rt)
+          rt=self._read(5)
+          print('casa', type(rt))
           if rt==chr(0x06):
             self.envio = "Status: 00  Error: 00"
             rt=True
@@ -108,6 +108,7 @@ class tf_ve_ifpython:
         self.ser.setRTS(False)
       except serial.SerialException:
         rt=False
+        print('ojo')
       return rt
 
   def SendCmdFile(self, f):
@@ -341,41 +342,41 @@ class tf_ve_ifpython:
     return m
 
   def _GetStatusError(self,st,er):
-    st_aux = st;
+    st_aux = st
     st = st & ~0x04
-
+    print(st)
     if   (st & 0x6A) == 0x6A: #En modo fiscal, carga completa de la memoria fiscal y emisi�n de documentos no fiscales
-      self.status='En modo fiscal, carga completa de la memoria fiscal y emisi�n de documentos no fiscales'
+      self.status='En modo fiscal, carga completa de la memoria fiscal y emision de documentos no fiscales'
       status = "12"
     elif (st & 0x69) == 0x69: #En modo fiscal, carga completa de la memoria fiscal y emisi�n de documentos  fiscales
-      self.status='En modo fiscal, carga completa de la memoria fiscal y emisi�n de documentos  fiscales'
+      self.status='En modo fiscal, carga completa de la memoria fiscal y emision de documentos  fiscales'
       status = "11"
     elif (st & 0x68) == 0x68: #En modo fiscal, carga completa de la memoria fiscal y en espera
       self.status='En modo fiscal, carga completa de la memoria fiscal y en espera'
       status = "10"
     elif (st & 0x72) == 0x72: #En modo fiscal, cercana carga completa de la memoria fiscal y en emisi�n de documentos no fiscales
-      self.status='En modo fiscal, cercana carga completa de la memoria fiscal y en emisi�n de documentos no fiscales'
+      self.status='En modo fiscal, cercana carga completa de la memoria fiscal y en emision de documentos no fiscales'
       status = "9 "
     elif (st & 0x71) == 0x71: #En modo fiscal, cercana carga completa de la memoria fiscal y en emisi�n de documentos no fiscales
-      self.status='En modo fiscal, cercana carga completa de la memoria fiscal y en emisi�n de documentos no fiscales'
+      self.status='En modo fiscal, cercana carga completa de la memoria fiscal y en emision de documentos no fiscales'
       status = "8 "
     elif (st & 0x70) == 0x70: #En modo fiscal, cercana carga completa de la memoria fiscal y en espera
       self.status='En modo fiscal, cercana carga completa de la memoria fiscal y en espera'
       status = "7 "
     elif (st & 0x62) == 0x62: #En modo fiscal y en emisi�n de documentos no fiscales
-      self.status='En modo fiscal y en emisi�n de documentos no fiscales'
+      self.status='En modo fiscal y en emision de documentos no fiscales'
       status = "6 "
     elif (st & 0x61) == 0x61: #En modo fiscal y en emisi�n de documentos fiscales
-      self.status='En modo fiscal y en emisi�n de documentos fiscales'
+      self.status='En modo fiscal y en emision de documentos fiscales'
       status = "5 "
     elif (st & 0x60) == 0x60: #En modo fiscal y en espera
       self.status='En modo fiscal y en espera'
       status = "4 "
     elif (st & 0x42) == 0x42: #En modo prueba y en emisi�n de documentos no fiscales
-      self.status='En modo prueba y en emisi�n de documentos no fiscales'
+      self.status='En modo prueba y en emision de documentos no fiscales'
       status = "3 "
     elif (st & 0x41) == 0x41: #En modo prueba y en emisi�n de documentos fiscales
-      self.status='En modo prueba y en emisi�n de documentos fiscales'
+      self.status='En modo prueba y en emision de documentos fiscales'
       status = "2 "
     elif (st & 0x40) == 0x40: #En modo prueba y en espera
       self.status='En modo prueba y en espera'
@@ -423,17 +424,20 @@ class tf_ve_ifpython:
       error = "112 "
     elif er == 128:     # Error en la comunicacion
       self.error = 'CTS en falso'
-      error = "128 ";
+      error = "128 "
     elif er == 137:     # No hay respuesta
       self.error = 'No hay respuesta'
-      error = "137 ";
+      error = "137 "
     elif er == 144:     # Error LRC
       self.error = 'Error LRC'
-      error = "144 ";
+      error = "144 "
     elif er == 114:
       self.error = 'Impresora no responde o ocupada'
-      error = "114 ";
-    return status+"   " +error+"   " +self.error
+      error = "114 "
+    statusnew=status+"   " +error+"   " +self.error 
+    print(self.status)
+    print(self.error)
+    return statusnew
 
 
 class Tfhka(tf_ve_ifpython):
