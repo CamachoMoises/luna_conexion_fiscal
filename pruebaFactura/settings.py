@@ -84,7 +84,7 @@ DATABASES = {
     }
 }
 CORS_ALLOWED_ORIGINS = True
-CORS_ORIGIN_WHITELIST=['http://localhost:3000', 'http://172.168.20.98:3000']
+CORS_ORIGIN_WHITELIST=['http://localhost:3000', 'http://172.168.20.98:3000','http://172.168.20.10:3000']
 CORS_ALLOW_CREDENTIALS=True
 
 # Password validation

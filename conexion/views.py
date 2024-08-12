@@ -61,11 +61,23 @@ def status(req):
     PORT = cache.get('PORT')
     DB_PORT = Puerto.objects.last()
     print(PORT)
-    if PORT == DB_PORT.nombre and isinstance(PORT,str):
-        resp=statusImpresora(PORT)
-        return JsonResponse({"status":resp})
-    else:
-        return JsonResponse({"error":True}) 
+    try:
+        if PORT == DB_PORT.nombre and isinstance(PORT,str):
+            resp=statusImpresora(PORT)
+            return JsonResponse({
+                    "resp":resp,
+                    "status":True,
+                    "error":False
+                    })
+        else:
+           raise Exception('el puerto no esta configurado')
+    except Exception as e:
+        print(e)
+        return JsonResponse({
+                "message":"Error al configurar el puerto",
+                "error":True
+            })
+
     
 @api_view(['GET'])
 def enviarComandoCMD(req):
@@ -84,12 +96,21 @@ def enviarComandoCMD(req):
 def imprimirReporteX(req):
     PORT = cache.get('PORT')
     DB_PORT = Puerto.objects.last()
-    print(PORT)
-    if PORT == DB_PORT.nombre and isinstance(PORT,str):
-        ReporteXPrint(PORT)
-        return HttpResponse("Reporte Impreso X")
-    else:
-        return HttpResponse("error al imprimir")
+    try:
+        if PORT == DB_PORT.nombre and isinstance(PORT,str):
+            ReporteXPrint(PORT)
+            return JsonResponse({
+                        "resp":'reporte Impreso',
+                        "error":False
+                        })
+        else:
+           raise Exception('el puerto no esta configurado')
+    except Exception as e:
+        print(e)
+        return JsonResponse({
+                "message":"Error al configurar el puerto",
+                "error":True
+            })
     
 def imprimirReporteZ(req):
     PORT = cache.get('PORT')
